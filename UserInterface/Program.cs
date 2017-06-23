@@ -8,9 +8,9 @@
         {
             GameLogic gameLogic = new GameLogic();
 
-            StartForm startForm = new StartForm();
+            FormStart formStart = new FormStart();
 
-            startForm.ShowDialog();
+            formStart.ShowDialog();
         }
     }
 }
