@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace StartForm.Properties
+namespace UserInterface.Properties
 {
 
 
