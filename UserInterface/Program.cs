@@ -4,8 +4,8 @@
     {
         public static void Main()
         {
-           FormGame formGame = new FormGame();
-           formGame.ShowDialog();
+            FormGame formGame = new FormGame();
+            formGame.ShowDialog();
         }
     }
 }

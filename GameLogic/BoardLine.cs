@@ -2,9 +2,11 @@
 {
     public class BoardLine
     {
-        private char[] m_UserGuess;
-        private ushort m_ExistWrongPlaceResult;
         private ushort m_ExistRightPlaceResult;
+
+        private ushort m_ExistWrongPlaceResult;
+
+        private char[] m_UserGuess;
 
         public BoardLine(ushort i_Amount, char i_Letter)
         {
@@ -18,20 +20,8 @@
         internal enum eResultLetter : ushort
         {
             ExistWrongPlace = 'X',
+
             ExistRightPlace = 'V'
-        }
-
-        public ushort ExistWrongPlaceResult
-        {
-            get
-            {
-                return this.m_ExistWrongPlaceResult;
-            }
-
-            set
-            {
-                this.m_ExistWrongPlaceResult = value;
-            }
         }
 
         public ushort ExistRightPlaceResult
@@ -44,6 +34,19 @@
             set
             {
                 this.m_ExistRightPlaceResult = value;
+            }
+        }
+
+        public ushort ExistWrongPlaceResult
+        {
+            get
+            {
+                return this.m_ExistWrongPlaceResult;
+            }
+
+            set
+            {
+                this.m_ExistWrongPlaceResult = value;
             }
         }
 
