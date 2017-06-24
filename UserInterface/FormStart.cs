@@ -16,8 +16,6 @@
 
         public const string k_FormText = "Bool Pgia";
 
-        private readonly FormGame m_FormGame = new FormGame();
-
         private readonly Button m_ButtonNumOfChances = new Button();
 
         private readonly Button m_ButtonStart = new Button();
@@ -29,7 +27,7 @@
             this.Text = k_FormText;
             this.Size = new Size((int)eFormSize.Width, (int)eFormSize.Height);
             this.StartPosition = FormStartPosition.CenterScreen;
-            this.FormBorderStyle = FormBorderStyle.Fixed3D;
+            this.FormBorderStyle = FormBorderStyle.FixedToolWindow;
         }
 
         private enum eButtonNumOfChancesOffset
@@ -72,7 +70,7 @@
             base.OnShown(e);
         }
 
-        private void button_Click(object i_Sender, EventArgs i_E)
+        private void button_Click(object i_Sender, EventArgs i_Evet)
         {
             if (i_Sender == m_ButtonNumOfChances)
             {
@@ -89,7 +87,7 @@
             if (m_NumOfChancesCount < k_MaxNumOfChances)
             {
                 m_NumOfChancesCount++;
-                m_ButtonNumOfChances.Text = String.Format(k_NumOfChangesText, m_NumOfChancesCount);
+                m_ButtonNumOfChances.Text = string.Format(k_NumOfChangesText, m_NumOfChancesCount);
             }
         }
 
@@ -103,7 +101,7 @@
             m_ButtonStart.Location = new Point((int)eButtonStartLocation.Left, (int)eButtonStartLocation.Top);
             m_ButtonStart.Click += new EventHandler(button_Click);
 
-            m_ButtonNumOfChances.Text = String.Format(k_NumOfChangesText, m_NumOfChancesCount);
+            m_ButtonNumOfChances.Text = string.Format(k_NumOfChangesText, m_NumOfChancesCount);
             this.Controls.Add(m_ButtonNumOfChances);
             m_ButtonNumOfChances.Size = new Size(
                 (int)eButtonNumOfChangesSize.Width,
@@ -116,8 +114,7 @@
 
         private void startGame()
         {
-            this.Visible = false;
-            m_FormGame.ShowDialog();
+            this.Close();
         }
     }
 }
