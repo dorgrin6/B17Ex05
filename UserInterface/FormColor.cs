@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace UserInterface
 {
-    public partial class FormColor : Form
+    public class FormColor : Form
     {
         private const ushort k_numOfColors = 8;
 
@@ -14,6 +14,8 @@ namespace UserInterface
         private Color m_SelectedColor;
 
         private const ushort k_SpaceOffset = 10;
+
+        private const string k_FormTitle = "Choose Color:";
 
         private enum eFormStartLocation
         {
@@ -39,9 +41,9 @@ namespace UserInterface
 
         public FormColor()
         {
-            this.StartPosition = FormStartPosition.CenterScreen;
+            this.StartPosition = FormStartPosition.CenterParent;
             this.FormBorderStyle = FormBorderStyle.FixedToolWindow;
-
+            this.Text = k_FormTitle;
             for (int i=0; i < k_numOfColors; i++)
             {
                 m_ListOfButtons.Add(new Button());

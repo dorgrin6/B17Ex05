@@ -15,13 +15,6 @@ namespace UserInterface
 
         public const string k_AcceptText = "-->>";
 
-        /*TODO: once the accept button is on we neeed to prefrom the following:
-            1) check if all colors in that line were entered , otherwise print an error message "Choose all colors for guess"
-            2) if all colors were entered we need to check the result and show it in the ResultButtonsList
-            3) if all results correct we print a message "you win"
-            4) else, if number of guessing lines ended then print message "you lost"
-            5) else, enable next line of guessing (so player can choose colors)
-        */
         private const ushort k_SpaceOffset = 10;
 
         public enum eAcceptButtonSize
@@ -34,10 +27,15 @@ namespace UserInterface
         public GameLine(Point i_Location)
         {
             m_Guesses = new GuessesButtonsList(i_Location);
-            m_AcceptButton = new Button();
+            foreach(Button btn in m_Guesses.List)
+            {
+                btn.Click += new EventHandler(colorButton_Click);
+            }
 
+            m_AcceptButton = new Button();
             m_AcceptButton.Text = k_AcceptText;
             m_AcceptButton.Size = new Size((int)eAcceptButtonSize.Width, (int)eAcceptButtonSize.Height);
+            m_AcceptButton.Enabled = false;
 
             i_Location.X += m_Guesses.GetLengthX();
             i_Location.Y += m_Guesses.GetLengthY() / 2;
@@ -93,7 +91,23 @@ namespace UserInterface
         public void EnableLine(bool i_IsEnabled)
         {
             m_Guesses.EnableButtons(i_IsEnabled);
-            m_AcceptButton.Enabled = i_IsEnabled;
+            if (!i_IsEnabled)
+            {
+                m_AcceptButton.Enabled = i_IsEnabled;
+            }
+        }
+
+        public void colorButton_Click(object i_Sender, EventArgs i_Event)
+        {
+            if (!m_AcceptButton.Enabled && m_Guesses.LeftToSelectColor == 0)
+            {
+                m_AcceptButton.Enabled = true;
+            }
+        }
+
+        public void ShowResults(ushort i_ExistRightPlace, ushort i_ExistWrongPlace)
+        {
+            m_Results.ShowResults(i_ExistRightPlace, i_ExistWrongPlace);
         }
     }
 }

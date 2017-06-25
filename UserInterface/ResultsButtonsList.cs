@@ -33,5 +33,22 @@ namespace UserInterface
             i_Location.X += ((int)eResultButtonSize.Width + k_SpaceOffset);
             m_ListOfButtons[3].Location = i_Location;
         }
+
+        public void ShowResults(ushort i_ExistRightPlace, ushort i_ExistWrongPlace)
+        {
+            foreach (Button btn in m_ListOfButtons)
+            {
+                if (i_ExistRightPlace > 0)
+                {
+                    btn.BackColor = ColorUtilities.ExistRightPlaceColor;
+                    i_ExistRightPlace--;
+                }
+                else if (i_ExistWrongPlace > 0)
+                {
+                    btn.BackColor = ColorUtilities.ExistWrongPlaceColor;
+                    i_ExistWrongPlace--;
+                }
+            }
+        }
     }
 }

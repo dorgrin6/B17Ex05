@@ -11,6 +11,8 @@ namespace UserInterface
 
         private readonly FormColor m_FormColor = new FormColor();
 
+        private ushort m_LeftToSelectColor = k_GuessSize;
+
         private enum eGuessButtonSize
         {
             Width = 50,
@@ -26,6 +28,14 @@ namespace UserInterface
                 btn.Location = i_Location;
                 i_Location.X += ((int)eGuessButtonSize.Width + k_SpaceOffset);
                 btn.Click += new EventHandler(button_Click);
+            }
+        }
+
+        public ushort LeftToSelectColor
+        {
+            get
+            {
+                return m_LeftToSelectColor;
             }
         }
 
@@ -60,10 +70,19 @@ namespace UserInterface
 
         private void button_Click(object i_Sender, EventArgs i_Evet)
         {
+            Button colorButton = (i_Sender as Button);
+
+            m_FormColor.StartPosition = FormStartPosition.Manual;
+            m_FormColor.Location = new Point(Cursor.Position.X, Cursor.Position.Y);
             m_FormColor.ShowDialog();
             if (m_FormColor.DialogResult != DialogResult.Cancel)
             {
-                (i_Sender as Button).BackColor = m_FormColor.SelectedColor;
+                if (colorButton.BackColor == Control.DefaultBackColor)
+                {
+                    m_LeftToSelectColor--;
+                }
+
+                colorButton.BackColor = m_FormColor.SelectedColor;
             }
         }
 
@@ -83,6 +102,15 @@ namespace UserInterface
             return isColorSelected;
         }
         
+        public void CopyButtonsColors(List<Button> i_SourceButtons)
+        {
+            int i = 0;
 
+            foreach (Button btn in m_ListOfButtons)
+            {
+                btn.BackColor = i_SourceButtons[i].BackColor;
+                i++;
+            }
+        }
     }
 }

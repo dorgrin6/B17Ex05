@@ -20,10 +20,19 @@
 
         private const ushort k_SpaceOffset = 30;
 
+        private const string k_MessageWin = "Congratulations! You won!";
+
+        private const string k_MessageLost = "Sorry. You lost the game.";
+
+        private const string k_MessageErrorDuplicateColors = "Error. Dont use same color in a guess.";
+
+        private const string k_MessageErrorEmptyColor = "Error. You didnt pick all colors for a guess.";
+
         public FormGame()
         {
             this.Text = FormStart.k_FormText;
             this.FormBorderStyle = FormBorderStyle.Fixed3D;
+            this.MaximizeBox = false;
             this.Size = new Size((int)eDefaultFormSize.Width, (int)eDefaultFormSize.Height);
             this.StartPosition = FormStartPosition.CenterScreen;
         }
@@ -47,6 +56,9 @@
             m_FormStart.ShowDialog();
             if (m_FormStart.DialogResult != DialogResult.Cancel)
             {
+                m_GameLogic.UserGuessesAmount = m_FormStart.GuessAmountCount;
+                m_GameLogic.InitiateGame();
+                
                 buildGameBoard();
                 this.ShowDialog();
             }
@@ -112,35 +124,79 @@
         {
             List<Color> colors;
             string letters;
-            const bool isEnabled = true;
 
-            if (m_GameLine[m_CurrentLine].isGuessLegal())
+            //TODO: if the accept button is not allowed when color not chosen then there is no reason to check if
+            //the guess is legal. On the other hand, why not?
+            if (m_GameLine[m_CurrentLine].isGuessLegal()) 
             {
                 colors = m_GameLine[m_CurrentLine].GuessButtons.GetColorsList();
-                letters = ColorUtilities.ConvertColorsToString(colors);
+                letters = ColorUtilities.ConvertColorsToLetters(colors);
                 if (m_GameLogic.HasDuplicateLetters(letters))
                 {
-                    // print message "duplictae colors"
+                    MessageBox.Show(k_MessageErrorDuplicateColors);
                 }
                 else
                 {
-                    // we need to enter the input to the logic, and compute results
-
-                    m_GameLine[m_CurrentLine].EnableLine(!isEnabled);
-                    m_CurrentLine++;
-                    if (m_CurrentLine != m_GameLine.Count)
-                    {
-                        m_GameLine[m_CurrentLine].EnableLine(isEnabled);
-                    }
-                    
+                    acceptUserGuess(letters);
                 }
             }
             else
             {
-                //print message "
+                MessageBox.Show(k_MessageErrorEmptyColor);
             }
-            
+        }
+
+
+        private void acceptUserGuess(string i_UserGuess)
+        {
+            ushort existRightPlace;
+            ushort existWrongPlace;
+            const bool isEnabled = true;
+
+            insertGuessToBoard(m_CurrentLine, i_UserGuess);
+            existRightPlace = m_GameLogic.Board[m_CurrentLine].ExistRightPlaceResult;
+            existWrongPlace = m_GameLogic.Board[m_CurrentLine].ExistWrongPlaceResult;
+            m_GameLine[m_CurrentLine].ShowResults(existRightPlace, existWrongPlace);
+            m_GameLine[m_CurrentLine].EnableLine(!isEnabled);
+
+            if (m_GameLogic.IsWinningGuess(m_CurrentLine))
+            {
+                m_GameGoal.CopyButtonsColors(m_GameLine[m_CurrentLine].GuessButtons.List);
+                MessageBox.Show(k_MessageWin);
+            }
+            else
+            {
+                m_CurrentLine++;
+                activateNextLine();
+            }
 
         }
+
+        private void insertGuessToBoard(int i_BoardIndex, string i_UserGuess)
+        {
+            BoardLine lineToInsert = m_GameLogic.Board[i_BoardIndex];
+
+            for (int i = 0; i < i_UserGuess.Length; i++)
+            {
+                lineToInsert.UserGuess[i] = i_UserGuess[i];
+            }
+
+            m_GameLogic.SetExistingValuesInGuess(i_BoardIndex);
+        }
+
+        private void activateNextLine()
+        {
+            const bool isEnabled = true;
+
+            if (m_CurrentLine != m_GameLine.Count)
+            {
+                m_GameLine[m_CurrentLine].EnableLine(isEnabled);
+            }
+            else
+            {
+                MessageBox.Show(k_MessageLost);
+            }
+        }
+
     }
 }

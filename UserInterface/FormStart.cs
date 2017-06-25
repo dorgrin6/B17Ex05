@@ -73,14 +73,6 @@
             Height = 160
         }
 
-        public ushort NumOfChancesCount
-        {
-            get
-            {
-                return m_NumOfChancesCount;
-            }
-        }
-
         protected override void OnLoad(EventArgs i_Event)
         {
             base.OnLoad(i_Event);

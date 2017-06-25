@@ -23,6 +23,10 @@ namespace UserInterface
 
         private static readonly Color k_White = Color.White;
 
+        private static readonly Color k_ExistRightPlaceColor = Color.Black;
+
+        private static readonly Color k_ExistWrongPlaceColor = Color.Yellow;
+
         private static readonly Dictionary<Color,char> m_ColorLetter = new Dictionary<Color, char>() {
             { k_Purple , 'A' } , { k_Red , 'B' } , { k_Lime , 'C' }, { k_Cyan , 'D' } ,
             { k_Blue , 'E' } , { k_Yellow , 'F' } , { k_Brown , 'G' } , { k_White , 'H'} };
@@ -92,7 +96,23 @@ namespace UserInterface
             }
         }
 
-        public static string ConvertColorsToString(List<Color> i_Colors)
+        public static Color ExistRightPlaceColor
+        {
+            get
+            {
+                return k_ExistRightPlaceColor;
+            }
+        }
+
+        public static Color ExistWrongPlaceColor
+        {
+            get
+            {
+                return k_ExistWrongPlaceColor;
+            }
+        }
+
+        public static string ConvertColorsToLetters(List<Color> i_Colors)
         {
             StringBuilder guessAsString = new StringBuilder();
 

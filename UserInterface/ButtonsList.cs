@@ -19,6 +19,14 @@ namespace UserInterface
             }
         }
 
+        public List<Button> List
+        {
+            get
+            {
+                return m_ListOfButtons;
+            }
+        }
+
         public Button this[int key]
         {
             get
