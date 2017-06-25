@@ -26,5 +26,17 @@ namespace UserInterface
                 return m_ListOfButtons[key];
             }
         }
+
+        public List<Color> GetColorsList()
+        {
+            List<Color> colors = new List<Color>();
+
+            foreach(Button btn in m_ListOfButtons)
+            {
+                colors.Add(btn.BackColor);
+            }
+
+            return colors;
+        }
     }
 }

@@ -46,6 +46,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ButtonsList.cs" />
+    <Compile Include="ColorUtilities.cs" />
+    <Compile Include="FormColor.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="GameLine.cs" />
     <Compile Include="GuessesButtonsList.cs" />
     <Compile Include="Program.cs" />

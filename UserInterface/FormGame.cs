@@ -1,5 +1,6 @@
 ﻿namespace UserInterface
 {
+    using System;
     using System.Drawing;
     using System.Windows.Forms;
     using System.Collections.Generic;
@@ -14,6 +15,8 @@
         private GuessesButtonsList m_GameGoal;
 
         private List<GameLine> m_GameLine;
+
+        private ushort m_CurrentLine = 0;
 
         private const ushort k_SpaceOffset = 30;
 
@@ -68,19 +71,27 @@
         private void buildGameBoard()
         {
             Point location = new Point(20, 20);
+            const bool isEnabled = true;
 
             m_GameGoal = new GuessesButtonsList(location);
+            m_GameGoal.DarkButtons();
+
             location.Y += m_GameGoal.GetLengthY() + 30;
             addButtonsToForm(m_GameGoal);
 
             m_GameLine = new List<GameLine>(m_FormStart.GuessAmountCount);
-            for (int i=0; i<m_FormStart.GuessAmountCount; i++)
+
+            // TODO: we should avoid using for loop
+            for (int i = 0; i < m_FormStart.GuessAmountCount; i++)
             {
                 m_GameLine.Add(new GameLine(location));
+                m_GameLine[i].AcceptButton.Click += new EventHandler(button_Click);
+                m_GameLine[i].EnableLine(!isEnabled);
                 addLineToForm(m_GameLine[i]);
                 location.Y += m_GameLine[i].GetLengthY();
             }
 
+            m_GameLine[0].EnableLine(isEnabled);
             buildFormBorder();
         }
 
@@ -95,6 +106,41 @@
             width = (int)eDefaultFormSize.Width;
 
             this.ClientSize = new Size(width, height);
+        }
+
+        private void button_Click(object i_Sender, EventArgs i_Evet)
+        {
+            List<Color> colors;
+            string letters;
+            const bool isEnabled = true;
+
+            if (m_GameLine[m_CurrentLine].isGuessLegal())
+            {
+                colors = m_GameLine[m_CurrentLine].GuessButtons.GetColorsList();
+                letters = ColorUtilities.ConvertColorsToString(colors);
+                if (m_GameLogic.HasDuplicateLetters(letters))
+                {
+                    // print message "duplictae colors"
+                }
+                else
+                {
+                    // we need to enter the input to the logic, and compute results
+
+                    m_GameLine[m_CurrentLine].EnableLine(!isEnabled);
+                    m_CurrentLine++;
+                    if (m_CurrentLine != m_GameLine.Count)
+                    {
+                        m_GameLine[m_CurrentLine].EnableLine(isEnabled);
+                    }
+                    
+                }
+            }
+            else
+            {
+                //print message "
+            }
+            
+
         }
     }
 }
