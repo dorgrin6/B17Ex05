@@ -73,6 +73,14 @@
             Height = 160
         }
 
+        public ushort NumOfChancesCount
+        {
+            get
+            {
+                return m_NumOfChancesCount;
+            }
+        }
+
         protected override void OnLoad(EventArgs i_Event)
         {
             base.OnLoad(i_Event);
@@ -80,7 +88,7 @@
             initializeComponent();
         }
 
-        private void button_Click(object i_Sender, EventArgs i_Evet)
+        private void button_Click(object i_Sender, EventArgs i_Event)
         {
             if (i_Sender == m_ButtonNumOfGuesses)
             {
