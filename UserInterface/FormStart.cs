@@ -3,24 +3,24 @@
     using System;
     using System.Drawing;
     using System.Windows.Forms;
-
+    
     public class FormStart : Form
     {
         public const string k_FormText = "Bool Pgia";
 
         public const string k_StartText = "Start";
 
-        private const int k_MaxNumOfChances = 8;
+        private const int k_MaxNumOfGuesses = 10;
 
-        private const int k_MinNumOfChances = 4;
+        private const int k_MinNumOfGuesses = 4;
 
-        private const string k_NumOfChangesText = "Number of chances: {0}";
+        private const string k_NumOfGuessesText = "Number of chances: {0}";
 
-        private readonly Button m_ButtonNumOfChances = new Button();
+        private readonly Button m_ButtonNumOfGuesses = new Button();
 
         private readonly Button m_ButtonStart = new Button();
 
-        private ushort m_NumOfChancesCount = k_MinNumOfChances;
+        private ushort m_GuessAmountCount = k_MinNumOfGuesses;
 
         public FormStart()
         {
@@ -30,14 +30,22 @@
             this.FormBorderStyle = FormBorderStyle.FixedToolWindow;
         }
 
-        private enum eButtonNumOfChancesOffset
+        public ushort GuessAmountCount
+        {
+            get
+            {
+                return m_GuessAmountCount;
+            }
+        }
+
+        private enum eButtonNumOfGuessesOffset
         {
             Left = 600,
 
             Top = 50
         }
 
-        private enum eButtonNumOfChangesSize
+        private enum eButtonNumOfGuessesSize
         {
             Width = 200,
 
@@ -62,7 +70,7 @@
         {
             Width = 380,
 
-            Height = 190
+            Height = 160
         }
 
         protected override void OnLoad(EventArgs i_Event)
@@ -74,9 +82,9 @@
 
         private void button_Click(object i_Sender, EventArgs i_Evet)
         {
-            if (i_Sender == m_ButtonNumOfChances)
+            if (i_Sender == m_ButtonNumOfGuesses)
             {
-                increaseChancesIfLowerThanMax();
+                increaseGuessesIfLowerThanMax();
             }
             else if (i_Sender == m_ButtonStart)
             {
@@ -84,13 +92,18 @@
             }
         }
 
-        private void increaseChancesIfLowerThanMax()
+        private void increaseGuessesIfLowerThanMax()
         {
-            if (m_NumOfChancesCount < k_MaxNumOfChances)
+            if (m_GuessAmountCount < k_MaxNumOfGuesses)
             {
-                m_NumOfChancesCount++;
-                m_ButtonNumOfChances.Text = string.Format(k_NumOfChangesText, m_NumOfChancesCount);
+                m_GuessAmountCount++;
             }
+            else
+            {
+                m_GuessAmountCount = k_MinNumOfGuesses;
+            }
+
+            m_ButtonNumOfGuesses.Text = string.Format(k_NumOfGuessesText, m_GuessAmountCount);
         }
 
         private void initailizeButton(Button i_Button, string i_Text, Point i_Location, Size i_Size)
@@ -114,12 +127,12 @@
                 new Size((int)eButtonStartSize.Width, (int)eButtonStartSize.Height));
 
             initailizeButton(
-                m_ButtonNumOfChances,
-                string.Format(k_NumOfChangesText, m_NumOfChancesCount),
+                m_ButtonNumOfGuesses,
+                string.Format(k_NumOfGuessesText, m_GuessAmountCount),
                 new Point(
-                    formCenterLeft - (int)eButtonNumOfChancesOffset.Left,
-                    m_ButtonStart.Top - (int)eButtonNumOfChancesOffset.Top),
-                new Size((int)eButtonNumOfChangesSize.Width, (int)eButtonNumOfChangesSize.Height));
+                    formCenterLeft - (int)eButtonNumOfGuessesOffset.Left,
+                    m_ButtonStart.Top - (int)eButtonNumOfGuessesOffset.Top),
+                new Size((int)eButtonNumOfGuessesSize.Width, (int)eButtonNumOfGuessesSize.Height));
 
             /*
             m_ButtonStart.Text = k_StartText;
@@ -127,20 +140,21 @@
             m_ButtonStart.Location = new Point((int)eButtonStartLocation.Left, (int)eButtonStartLocation.Top);
             m_ButtonStart.Click += new EventHandler(button_Click);
 
-            m_ButtonNumOfChances.Text = string.Format(k_NumOfChangesText, m_NumOfChancesCount);
-            this.Controls.Add(m_ButtonNumOfChances);
-            m_ButtonNumOfChances.Size = new Size(
-                (int)eButtonNumOfChangesSize.Width,
-                (int)eButtonNumOfChangesSize.Height);
-            m_ButtonNumOfChances.Location = new Point(
-                formCenterLeft - (int)eButtonNumOfChancesOffset.Left,
-                m_ButtonStart.Top - (int)eButtonNumOfChancesOffset.Top);
-            m_ButtonNumOfChances.Click += new EventHandler(button_Click);
+            m_ButtonNumOfGuesses.Text = string.Format(k_NumOfGuessesText, m_NumOfChancesCount);
+            this.Controls.Add(m_ButtonNumOfGuesses);
+            m_ButtonNumOfGuesses.Size = new Size(
+                (int)eButtonNumOfGuessesSize.Width,
+                (int)eButtonNumOfGuessesSize.Height);
+            m_ButtonNumOfGuesses.Location = new Point(
+                formCenterLeft - (int)eButtonNumOfGuessesOffset.Left,
+                m_ButtonStart.Top - (int)eButtonNumOfGuessesOffset.Top);
+            m_ButtonNumOfGuesses.Click += new EventHandler(button_Click);
         */
         }
 
         private void startGame()
         {
+            this.DialogResult = DialogResult.OK;
             this.Close();
         }
     }
