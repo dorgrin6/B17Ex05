@@ -31,6 +31,8 @@
         {
             this.Visible = false;
             m_FormStart.ShowDialog();
+            // just as an example:
+            ushort a = m_FormStart.NumOfChancesCount;
         }
     }
 }
