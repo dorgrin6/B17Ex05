@@ -85,22 +85,6 @@ namespace UserInterface
                 colorButton.BackColor = m_FormColor.SelectedColor;
             }
         }
-
-        public bool isAllColorsSelected()
-        {
-            bool isColorSelected = true;
-
-            foreach(Button btn in m_ListOfButtons)
-            {
-                if (btn.BackColor == Control.DefaultBackColor)
-                {
-                    isColorSelected = false;
-                    break;
-                }
-            }
-
-            return isColorSelected;
-        }
         
         public void CopyButtonsColors(List<Button> i_SourceButtons)
         {

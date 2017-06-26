@@ -29,7 +29,7 @@ namespace UserInterface
             m_Guesses = new GuessesButtonsList(i_Location);
             foreach(Button btn in m_Guesses.List)
             {
-                btn.Click += new EventHandler(colorButton_Click);
+                btn.Click += new EventHandler(buttonColor_Click);
             }
 
             m_AcceptButton = new Button();
@@ -75,18 +75,6 @@ namespace UserInterface
         {
             return m_Guesses.GetLengthY();
         }
-        
-        public bool isGuessLegal()
-        {
-            bool isGuessLegal = true;
-
-            if (!m_Guesses.isAllColorsSelected())
-            {
-                isGuessLegal = false;
-            }
-
-            return isGuessLegal;
-        }
        
         public void EnableLine(bool i_IsEnabled)
         {
@@ -97,7 +85,7 @@ namespace UserInterface
             }
         }
 
-        public void colorButton_Click(object i_Sender, EventArgs i_Event)
+        public void buttonColor_Click(object i_Sender, EventArgs i_Event)
         {
             if (!m_AcceptButton.Enabled && m_Guesses.LeftToSelectColor == 0)
             {

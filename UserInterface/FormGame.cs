@@ -14,7 +14,7 @@
 
         private GuessesButtonsList m_GameGoal;
 
-        private List<GameLine> m_GameLine;
+        private List<GameLine> m_GameLines;
 
         private ushort m_CurrentLine = 0;
 
@@ -25,8 +25,6 @@
         private const string k_MessageLost = "Sorry. You lost the game.";
 
         private const string k_MessageErrorDuplicateColors = "Error. Dont use same color in a guess.";
-
-        private const string k_MessageErrorEmptyColor = "Error. You didnt pick all colors for a guess.";
 
         public FormGame()
         {
@@ -73,10 +71,9 @@
 
         private void addButtonsToForm(ButtonsList i_ButtonsList)
         {
-            //TODO: we need a smart way to encapsulate the GuessSize=4
-            for (int i = 0; i < 4; i++)
+            foreach (Button btn in i_ButtonsList.List)
             {
-                this.Controls.Add(i_ButtonsList[i]);
+                this.Controls.Add(btn);
             }
         }
 
@@ -85,28 +82,42 @@
             Point location = new Point(20, 20);
             const bool isEnabled = true;
 
-            m_GameGoal = new GuessesButtonsList(location);
-            m_GameGoal.DarkButtons();
+            //creates the game goal in the upper part of the form
+            createGameGoal(ref location);
 
-            location.Y += m_GameGoal.GetLengthY() + 30;
-            addButtonsToForm(m_GameGoal);
-
-            m_GameLine = new List<GameLine>(m_FormStart.GuessAmountCount);
-
-            // TODO: we should avoid using for loop
+            //creates the game lines
+            m_GameLines = new List<GameLine>(m_FormStart.GuessAmountCount);
             for (int i = 0; i < m_FormStart.GuessAmountCount; i++)
             {
-                m_GameLine.Add(new GameLine(location));
-                m_GameLine[i].AcceptButton.Click += new EventHandler(button_Click);
-                m_GameLine[i].EnableLine(!isEnabled);
-                addLineToForm(m_GameLine[i]);
-                location.Y += m_GameLine[i].GetLengthY();
+                createGameLine(ref location);
             }
 
-            m_GameLine[0].EnableLine(isEnabled);
+            m_GameLines[0].EnableLine(isEnabled);
             buildFormBorder();
         }
 
+        private void createGameGoal(ref Point io_Location)
+        {
+            m_GameGoal = new GuessesButtonsList(io_Location);
+            m_GameGoal.DarkButtons();
+            io_Location.Y += m_GameGoal.GetLengthY() + k_SpaceOffset;
+            addButtonsToForm(m_GameGoal);
+        }
+
+        private void createGameLine(ref Point io_Location)
+        {
+            GameLine newGameLine;
+            const bool isEnabled = true;
+
+            newGameLine = new GameLine(io_Location);
+            newGameLine.AcceptButton.Click += new EventHandler(buttonAccept_Click);
+            newGameLine.EnableLine(!isEnabled);
+            m_GameLines.Add(newGameLine);
+            addLineToForm(newGameLine);
+            io_Location.Y += newGameLine.GetLengthY();
+        }
+
+        // TODO: move to utilities
         private void buildFormBorder()
         {
             int height = 0;
@@ -120,29 +131,20 @@
             this.ClientSize = new Size(width, height);
         }
 
-        private void button_Click(object i_Sender, EventArgs i_Evet)
+        private void buttonAccept_Click(object i_Sender, EventArgs i_Evet)
         {
             List<Color> colors;
             string letters;
 
-            //TODO: if the accept button is not allowed when color not chosen then there is no reason to check if
-            //the guess is legal. On the other hand, why not?
-            if (m_GameLine[m_CurrentLine].isGuessLegal()) 
+            colors = m_GameLines[m_CurrentLine].GuessButtons.GetColorsList();
+            letters = ColorUtilities.ConvertColorsToLetters(colors);
+            if (m_GameLogic.HasDuplicateLetters(letters))
             {
-                colors = m_GameLine[m_CurrentLine].GuessButtons.GetColorsList();
-                letters = ColorUtilities.ConvertColorsToLetters(colors);
-                if (m_GameLogic.HasDuplicateLetters(letters))
-                {
-                    MessageBox.Show(k_MessageErrorDuplicateColors);
-                }
-                else
-                {
-                    acceptUserGuess(letters);
-                }
+                MessageBox.Show(k_MessageErrorDuplicateColors);
             }
             else
             {
-                MessageBox.Show(k_MessageErrorEmptyColor);
+                acceptUserGuess(letters);
             }
         }
 
@@ -156,12 +158,12 @@
             insertGuessToBoard(m_CurrentLine, i_UserGuess);
             existRightPlace = m_GameLogic.Board[m_CurrentLine].ExistRightPlaceResult;
             existWrongPlace = m_GameLogic.Board[m_CurrentLine].ExistWrongPlaceResult;
-            m_GameLine[m_CurrentLine].ShowResults(existRightPlace, existWrongPlace);
-            m_GameLine[m_CurrentLine].EnableLine(!isEnabled);
+            m_GameLines[m_CurrentLine].ShowResults(existRightPlace, existWrongPlace);
+            m_GameLines[m_CurrentLine].EnableLine(!isEnabled);
 
             if (m_GameLogic.IsWinningGuess(m_CurrentLine))
             {
-                m_GameGoal.CopyButtonsColors(m_GameLine[m_CurrentLine].GuessButtons.List);
+                m_GameGoal.CopyButtonsColors(m_GameLines[m_CurrentLine].GuessButtons.List);
                 MessageBox.Show(k_MessageWin);
             }
             else
@@ -188,9 +190,9 @@
         {
             const bool isEnabled = true;
 
-            if (m_CurrentLine != m_GameLine.Count)
+            if (m_CurrentLine != m_GameLines.Count)
             {
-                m_GameLine[m_CurrentLine].EnableLine(isEnabled);
+                m_GameLines[m_CurrentLine].EnableLine(isEnabled);
             }
             else
             {

@@ -133,23 +133,6 @@
                     formCenterLeft - (int)eButtonNumOfGuessesOffset.Left,
                     m_ButtonStart.Top - (int)eButtonNumOfGuessesOffset.Top),
                 new Size((int)eButtonNumOfGuessesSize.Width, (int)eButtonNumOfGuessesSize.Height));
-
-            /*
-            m_ButtonStart.Text = k_StartText;
-            this.Controls.Add(m_ButtonStart);
-            m_ButtonStart.Location = new Point((int)eButtonStartLocation.Left, (int)eButtonStartLocation.Top);
-            m_ButtonStart.Click += new EventHandler(button_Click);
-
-            m_ButtonNumOfGuesses.Text = string.Format(k_NumOfGuessesText, m_NumOfChancesCount);
-            this.Controls.Add(m_ButtonNumOfGuesses);
-            m_ButtonNumOfGuesses.Size = new Size(
-                (int)eButtonNumOfGuessesSize.Width,
-                (int)eButtonNumOfGuessesSize.Height);
-            m_ButtonNumOfGuesses.Location = new Point(
-                formCenterLeft - (int)eButtonNumOfGuessesOffset.Left,
-                m_ButtonStart.Top - (int)eButtonNumOfGuessesOffset.Top);
-            m_ButtonNumOfGuesses.Click += new EventHandler(button_Click);
-        */
         }
 
         private void startGame()
