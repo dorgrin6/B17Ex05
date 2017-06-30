@@ -24,11 +24,11 @@ namespace UserInterface
             Top = 20
         }
 
-        private enum eDefaultFormSize
+        private enum eDefaultClientSize
         {
             Width = 270,
 
-            Height = 100
+            Height = 150
         }
 
         private enum eColorButtonSize
@@ -41,6 +41,7 @@ namespace UserInterface
 
         public FormColor()
         {
+            this.ClientSize = new Size((int)eDefaultClientSize.Width, (int)eDefaultClientSize.Height);
             this.StartPosition = FormStartPosition.CenterParent;
             this.FormBorderStyle = FormBorderStyle.FixedToolWindow;
             this.Text = k_FormTitle;
@@ -102,22 +103,6 @@ namespace UserInterface
                 location.X += ((int)eColorButtonSize.Width + k_SpaceOffset);
                 countColors++;
             }
-
-            buildFormBorder();
         }
-
-        private void buildFormBorder()
-        {
-            int height = 0;
-            int width = 0;
-            int linesAmount = 2;
-            int lineHeight = (int)eColorButtonSize.Height + k_SpaceOffset;
-
-            height = (int)eFormStartLocation.Top + lineHeight * linesAmount;
-            width = (int)eDefaultFormSize.Width;
-
-            this.ClientSize = new Size(width, height);
-        }
-
     }
 }

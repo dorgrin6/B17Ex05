@@ -89,10 +89,16 @@
             m_GameLines = new List<GameLine>(m_FormStart.GuessAmountCount);
             for (int i = 0; i < m_FormStart.GuessAmountCount; i++)
             {
-                createGameLine(ref location);
+                if (i == 0)
+                {
+                    createGameLine(ref location, isEnabled);
+                }
+                else
+                {
+                    createGameLine(ref location, !isEnabled);
+                }
             }
 
-            m_GameLines[0].EnableLine(isEnabled);
             buildFormBorder();
         }
 
@@ -104,20 +110,18 @@
             addButtonsToForm(m_GameGoal);
         }
 
-        private void createGameLine(ref Point io_Location)
+        private void createGameLine(ref Point io_Location, bool i_isEnabled)
         {
             GameLine newGameLine;
-            const bool isEnabled = true;
 
             newGameLine = new GameLine(io_Location);
             newGameLine.AcceptButton.Click += new EventHandler(buttonAccept_Click);
-            newGameLine.EnableLine(!isEnabled);
+            newGameLine.EnableLine(i_isEnabled);
             m_GameLines.Add(newGameLine);
             addLineToForm(newGameLine);
             io_Location.Y += newGameLine.GetLengthY();
         }
 
-        // TODO: move to utilities
         private void buildFormBorder()
         {
             int height = 0;
@@ -147,7 +151,6 @@
                 acceptUserGuess(letters);
             }
         }
-
 
         private void acceptUserGuess(string i_UserGuess)
         {

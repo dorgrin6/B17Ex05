@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace UserInterface
 {
-    public class ColorUtilities
+    public static class ColorUtilities
     {
         private static readonly Color k_Purple = Color.Purple;
 
