@@ -1,4 +1,4 @@
-﻿namespace B17_Ex02
+﻿namespace GameLogic
 {
     using System;
 
@@ -155,7 +155,7 @@
             {
                 char currentLetter = i_UserGuess[i];
                 ushort currentOffset = (ushort)(currentLetter - eGuessLetterBounds.MinGuessLetter);
-                    // offset from borad start
+                // offset from borad start
 
                 if (m_GameGoal[currentOffset] == i)
                 {
@@ -190,7 +190,7 @@
         private void initGameGoalValues()
         {
             // amount of values in game
-            ushort valuesAmount = eGuessLetterBounds.MaxGuessLetter - eGuessLetterBounds.MinGuessLetter + 1;
+            const ushort valuesAmount = eGuessLetterBounds.MaxGuessLetter - eGuessLetterBounds.MinGuessLetter + 1;
             m_GameGoal = new short[valuesAmount];
 
             for (int i = 0; i < valuesAmount; i++)
@@ -205,5 +205,4 @@
                    && i_Letter <= (int)eGuessLetterBounds.MaxGuessLetter;
         }
     }
-
 }

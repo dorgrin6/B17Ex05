@@ -1,10 +1,9 @@
-﻿using System;
-using System.Drawing;
-using System.Windows.Forms;
-using System.Collections.Generic;
-
-namespace UserInterface
+﻿namespace UserInterface
 {
+    using System.Collections.Generic;
+    using System.Drawing;
+    using System.Windows.Forms;
+
     public class ButtonsList
     {
         protected const ushort k_GuessSize = 4;
@@ -27,11 +26,11 @@ namespace UserInterface
             }
         }
 
-        public Button this[int key]
+        public Button this[int i_Key]
         {
             get
             {
-                return m_ListOfButtons[key];
+                return m_ListOfButtons[i_Key];
             }
         }
 
@@ -39,7 +38,7 @@ namespace UserInterface
         {
             List<Color> colors = new List<Color>();
 
-            foreach(Button btn in m_ListOfButtons)
+            foreach (Button btn in m_ListOfButtons)
             {
                 colors.Add(btn.BackColor);
             }

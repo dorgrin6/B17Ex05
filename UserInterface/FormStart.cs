@@ -3,7 +3,7 @@
     using System;
     using System.Drawing;
     using System.Windows.Forms;
-    
+
     public class FormStart : Form
     {
         public const string k_FormText = "Bool Pgia";
@@ -16,9 +16,9 @@
 
         private const string k_NumOfGuessesText = "Number of chances: {0}";
 
-        private readonly Button m_ButtonNumOfGuesses = new Button();
+        private readonly Button r_ButtonNumOfGuesses = new Button();
 
-        private readonly Button m_ButtonStart = new Button();
+        private readonly Button r_ButtonStart = new Button();
 
         private ushort m_GuessAmountCount = k_MinNumOfGuesses;
 
@@ -28,14 +28,6 @@
             this.Size = new Size((int)eFormSize.Width, (int)eFormSize.Height);
             this.StartPosition = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.FixedToolWindow;
-        }
-
-        public ushort GuessAmountCount
-        {
-            get
-            {
-                return m_GuessAmountCount;
-            }
         }
 
         private enum eButtonNumOfGuessesOffset
@@ -73,6 +65,14 @@
             Height = 160
         }
 
+        public ushort GuessAmountCount
+        {
+            get
+            {
+                return m_GuessAmountCount;
+            }
+        }
+
         protected override void OnLoad(EventArgs i_Event)
         {
             base.OnLoad(i_Event);
@@ -82,11 +82,11 @@
 
         private void button_Click(object i_Sender, EventArgs i_Event)
         {
-            if (i_Sender == m_ButtonNumOfGuesses)
+            if (i_Sender == r_ButtonNumOfGuesses)
             {
                 increaseGuessesIfLowerThanMax();
             }
-            else if (i_Sender == m_ButtonStart)
+            else if (i_Sender == r_ButtonStart)
             {
                 startGame();
             }
@@ -103,7 +103,7 @@
                 m_GuessAmountCount = k_MinNumOfGuesses;
             }
 
-            m_ButtonNumOfGuesses.Text = string.Format(k_NumOfGuessesText, m_GuessAmountCount);
+            r_ButtonNumOfGuesses.Text = string.Format(k_NumOfGuessesText, m_GuessAmountCount);
         }
 
         private void initailizeButton(Button i_Button, string i_Text, Point i_Location, Size i_Size)
@@ -121,17 +121,17 @@
             int formCenterTop = (this.Top + this.Bottom) / 2;
 
             initailizeButton(
-                m_ButtonStart,
+                r_ButtonStart,
                 k_StartText,
                 new Point((int)eButtonStartLocation.Left, (int)eButtonStartLocation.Top),
                 new Size((int)eButtonStartSize.Width, (int)eButtonStartSize.Height));
 
             initailizeButton(
-                m_ButtonNumOfGuesses,
+                r_ButtonNumOfGuesses,
                 string.Format(k_NumOfGuessesText, m_GuessAmountCount),
                 new Point(
                     formCenterLeft - (int)eButtonNumOfGuessesOffset.Left,
-                    m_ButtonStart.Top - (int)eButtonNumOfGuessesOffset.Top),
+                    r_ButtonStart.Top - (int)eButtonNumOfGuessesOffset.Top),
                 new Size((int)eButtonNumOfGuessesSize.Width, (int)eButtonNumOfGuessesSize.Height));
         }
 

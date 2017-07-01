@@ -1,22 +1,14 @@
-﻿using System;
-using System.Drawing;
-using System.Windows.Forms;
-using System.Collections.Generic;
-
-namespace UserInterface
+﻿namespace UserInterface
 {
+    using System.Drawing;
+    using System.Windows.Forms;
+
     public class ResultsButtonsList : ButtonsList
     {
         private const ushort k_SpaceOffset = 5;
 
-        private enum eResultButtonSize
-        {
-            Width = 15,
-
-            Height = 15
-        }
-
-        public ResultsButtonsList(Point i_Location) : base()
+        public ResultsButtonsList(Point i_Location)
+            : base()
         {
             foreach (Button btn in m_ListOfButtons)
             {
@@ -32,6 +24,13 @@ namespace UserInterface
             m_ListOfButtons[2].Location = i_Location;
             i_Location.X += ((int)eResultButtonSize.Width + k_SpaceOffset);
             m_ListOfButtons[3].Location = i_Location;
+        }
+
+        private enum eResultButtonSize
+        {
+            Width = 15,
+
+            Height = 15
         }
 
         public void ShowResults(ushort i_ExistRightPlace, ushort i_ExistWrongPlace)

@@ -1,34 +1,41 @@
-﻿using System;
-using System.Drawing;
-using System.Collections.Generic;
-using System.Windows.Forms;
-
-namespace UserInterface
+﻿namespace UserInterface
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using System.Windows.Forms;
+
     public class FormColor : Form
     {
-        private const ushort k_numOfColors = 8;
+        private const string k_FormTitle = "Choose Color:";
 
-        private List<Button> m_ListOfButtons = new List<Button>(k_numOfColors);
-
-        private Color m_SelectedColor;
+        private const ushort k_NumOfColors = 8;
 
         private const ushort k_SpaceOffset = 10;
 
-        private const string k_FormTitle = "Choose Color:";
+        private readonly List<Button> sr_ListOfButtons = new List<Button>(k_NumOfColors);
 
-        private enum eFormStartLocation
+        private Color m_SelectedColor;
+
+        public FormColor()
         {
-            Left = 20,
+            this.ClientSize = new Size((int)eDefaultClientSize.Width, (int)eDefaultClientSize.Height);
+            this.StartPosition = FormStartPosition.CenterParent;
+            this.FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            this.Text = k_FormTitle;
+            for (int i = 0; i < k_NumOfColors; i++)
+            {
+                sr_ListOfButtons.Add(new Button());
+            }
 
-            Top = 20
-        }
-
-        private enum eDefaultClientSize
-        {
-            Width = 270,
-
-            Height = 150
+            sr_ListOfButtons[0].BackColor = ColorUtilities.Purple;
+            sr_ListOfButtons[1].BackColor = ColorUtilities.Red;
+            sr_ListOfButtons[2].BackColor = ColorUtilities.Lime;
+            sr_ListOfButtons[3].BackColor = ColorUtilities.Cyan;
+            sr_ListOfButtons[4].BackColor = ColorUtilities.Blue;
+            sr_ListOfButtons[5].BackColor = ColorUtilities.Yellow;
+            sr_ListOfButtons[6].BackColor = ColorUtilities.Brown;
+            sr_ListOfButtons[7].BackColor = ColorUtilities.White;
         }
 
         private enum eColorButtonSize
@@ -38,27 +45,18 @@ namespace UserInterface
             Height = 50
         }
 
-
-        public FormColor()
+        private enum eDefaultClientSize
         {
-            this.ClientSize = new Size((int)eDefaultClientSize.Width, (int)eDefaultClientSize.Height);
-            this.StartPosition = FormStartPosition.CenterParent;
-            this.FormBorderStyle = FormBorderStyle.FixedToolWindow;
-            this.Text = k_FormTitle;
-            for (int i=0; i < k_numOfColors; i++)
-            {
-                m_ListOfButtons.Add(new Button());
-            }
-            
-            
-            m_ListOfButtons[0].BackColor = ColorUtilities.Purple;
-            m_ListOfButtons[1].BackColor = ColorUtilities.Red;
-            m_ListOfButtons[2].BackColor = ColorUtilities.Lime;
-            m_ListOfButtons[3].BackColor = ColorUtilities.Cyan;
-            m_ListOfButtons[4].BackColor = ColorUtilities.Blue;
-            m_ListOfButtons[5].BackColor = ColorUtilities.Yellow;
-            m_ListOfButtons[6].BackColor = ColorUtilities.Brown;
-            m_ListOfButtons[7].BackColor = ColorUtilities.White;
+            Width = 270,
+
+            Height = 150
+        }
+
+        private enum eFormStartLocation
+        {
+            Left = 20,
+
+            Top = 20
         }
 
         public Color SelectedColor
@@ -69,13 +67,6 @@ namespace UserInterface
             }
         }
 
-        private void button_Click(object i_Sender, EventArgs i_Evet)
-        {
-            m_SelectedColor = (i_Sender as Button).BackColor;
-            this.DialogResult = DialogResult.OK;
-            this.Close();
-        }
-
         protected override void OnLoad(EventArgs i_Event)
         {
             base.OnLoad(i_Event);
@@ -83,12 +74,19 @@ namespace UserInterface
             initializeComponent();
         }
 
+        private void button_Click(object i_Sender, EventArgs i_Evet)
+        {
+            m_SelectedColor = (i_Sender as Button).BackColor;
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+        }
+
         private void initializeComponent()
         {
             Point location = new Point((int)eFormStartLocation.Left, (int)eFormStartLocation.Top);
             int countColors = 0;
 
-            foreach (Button btn in m_ListOfButtons)
+            foreach (Button btn in sr_ListOfButtons)
             {
                 btn.Size = new Size((int)eColorButtonSize.Width, (int)eColorButtonSize.Height);
                 btn.Click += new EventHandler(button_Click);

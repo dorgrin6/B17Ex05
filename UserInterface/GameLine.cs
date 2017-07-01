@@ -1,21 +1,45 @@
-﻿using System;
-using System.Drawing;
-using System.Windows.Forms;
-using System.Collections.Generic;
-
-namespace UserInterface
+﻿namespace UserInterface
 {
+    using System;
+    using System.Drawing;
+    using System.Windows.Forms;
+
     public class GameLine
     {
-        private readonly GuessesButtonsList m_Guesses;
-
-        private readonly Button m_AcceptButton;
-
-        private readonly ResultsButtonsList m_Results;
-
         public const string k_AcceptText = "-->>";
 
         private const ushort k_SpaceOffset = 10;
+
+        private readonly Button r_AcceptButton;
+
+        private readonly GuessesButtonsList r_Guesses;
+
+        private readonly ResultsButtonsList r_Results;
+
+        public GameLine(Point i_Location)
+        {
+            r_Guesses = new GuessesButtonsList(i_Location);
+            foreach (Button btn in r_Guesses.List)
+            {
+                btn.Click += new EventHandler(buttonColor_Click);
+            }
+
+            r_AcceptButton = new Button
+                                 {
+                                     Text = k_AcceptText,
+                                     Size = new Size((int)eAcceptButtonSize.Width, (int)eAcceptButtonSize.Height),
+                                     Enabled = false
+                                 };
+
+            i_Location.X += r_Guesses.GetLengthX();
+            i_Location.Y += r_Guesses.GetLengthY() / 2;
+            r_AcceptButton.Location = i_Location;
+
+            i_Location.X += (int)eAcceptButtonSize.Width + k_SpaceOffset;
+            i_Location.Y -= (int)eAcceptButtonSize.Height / 2;
+
+            r_Results = new ResultsButtonsList(i_Location);
+        }
 
         public enum eAcceptButtonSize
         {
@@ -24,42 +48,19 @@ namespace UserInterface
             Height = 20
         }
 
-        public GameLine(Point i_Location)
+        public Button AcceptButton
         {
-            m_Guesses = new GuessesButtonsList(i_Location);
-            foreach(Button btn in m_Guesses.List)
+            get
             {
-                btn.Click += new EventHandler(buttonColor_Click);
+                return r_AcceptButton;
             }
-
-            m_AcceptButton = new Button();
-            m_AcceptButton.Text = k_AcceptText;
-            m_AcceptButton.Size = new Size((int)eAcceptButtonSize.Width, (int)eAcceptButtonSize.Height);
-            m_AcceptButton.Enabled = false;
-
-            i_Location.X += m_Guesses.GetLengthX();
-            i_Location.Y += m_Guesses.GetLengthY() / 2;
-            m_AcceptButton.Location = i_Location;
-
-            i_Location.X += (int)eAcceptButtonSize.Width + k_SpaceOffset;
-            i_Location.Y -= (int)eAcceptButtonSize.Height / 2;
-
-            m_Results = new ResultsButtonsList(i_Location);
         }
 
         public GuessesButtonsList GuessButtons
         {
             get
             {
-                return m_Guesses;
-            }
-        }
-
-        public Button AcceptButton
-        {
-            get
-            {
-                return m_AcceptButton;
+                return r_Guesses;
             }
         }
 
@@ -67,35 +68,32 @@ namespace UserInterface
         {
             get
             {
-                return m_Results;
-            }
-        }
-
-        public int GetLengthY()
-        {
-            return m_Guesses.GetLengthY();
-        }
-       
-        public void EnableLine(bool i_IsEnabled)
-        {
-            m_Guesses.EnableButtons(i_IsEnabled);
-            if (!i_IsEnabled)
-            {
-                m_AcceptButton.Enabled = i_IsEnabled;
+                return r_Results;
             }
         }
 
         public void buttonColor_Click(object i_Sender, EventArgs i_Event)
         {
-            if (!m_AcceptButton.Enabled && m_Guesses.LeftToSelectColor == 0)
+            if (!r_AcceptButton.Enabled && r_Guesses.LeftToSelectColor == 0)
             {
-                m_AcceptButton.Enabled = true;
+                r_AcceptButton.Enabled = true;
             }
+        }
+
+        public void EnableLine(bool i_IsEnabled)
+        {
+            r_Guesses.EnableButtons(i_IsEnabled);
+            r_AcceptButton.Enabled = i_IsEnabled;
+        }
+
+        public int GetLengthY()
+        {
+            return r_Guesses.GetLengthY();
         }
 
         public void ShowResults(ushort i_ExistRightPlace, ushort i_ExistWrongPlace)
         {
-            m_Results.ShowResults(i_ExistRightPlace, i_ExistWrongPlace);
+            r_Results.ShowResults(i_ExistRightPlace, i_ExistWrongPlace);
         }
     }
 }

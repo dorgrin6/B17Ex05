@@ -1,4 +1,4 @@
-﻿namespace B17_Ex02
+﻿namespace GameLogic
 {
     public class BoardLine
     {

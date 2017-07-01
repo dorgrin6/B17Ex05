@@ -1,82 +1,71 @@
-﻿using System;
-using System.Text;
-using System.Drawing;
-using System.Collections.Generic;
-
-namespace UserInterface
+﻿namespace UserInterface
 {
+    using System.Collections.Generic;
+    using System.Drawing;
+    using System.Text;
+
     public static class ColorUtilities
     {
-        private static readonly Color k_Purple = Color.Purple;
+        private static readonly Color sr_Blue = Color.Blue;
 
-        private static readonly Color k_Red = Color.Red;
+        private static readonly Color sr_Brown = Color.Brown;
 
-        private static readonly Color k_Lime = Color.Lime;
+        private static readonly Color sr_Cyan = Color.Cyan;
 
-        private static readonly Color k_Cyan = Color.Cyan;
+        private static readonly Color sr_ExistRightPlaceColor = Color.Black;
 
-        private static readonly Color k_Blue = Color.Blue;
+        private static readonly Color sr_ExistWrongPlaceColor = Color.Yellow;
 
-        private static readonly Color k_Yellow = Color.Yellow;
+        private static readonly Color sr_Lime = Color.Lime;
 
-        private static readonly Color k_Brown = Color.Brown;
+        private static readonly Color sr_Purple = Color.Purple;
 
-        private static readonly Color k_White = Color.White;
+        private static readonly Color sr_Red = Color.Red;
 
-        private static readonly Color k_ExistRightPlaceColor = Color.Black;
+        private static readonly Color sr_White = Color.White;
 
-        private static readonly Color k_ExistWrongPlaceColor = Color.Yellow;
+        private static readonly Color sr_Yellow = Color.Yellow;
 
-        private static readonly Dictionary<Color,char> m_ColorLetter = new Dictionary<Color, char>() {
-            { k_Purple , 'A' } , { k_Red , 'B' } , { k_Lime , 'C' }, { k_Cyan , 'D' } ,
-            { k_Blue , 'E' } , { k_Yellow , 'F' } , { k_Brown , 'G' } , { k_White , 'H'} };
-
-
-        public static Color Purple
-        {
-            get
-            {
-                return k_Purple;
-            }
-        }
-
-        public static Color Red
-        {
-            get
-            {
-                return k_Red;
-            }
-        }
-
-        public static Color Lime
-        {
-            get
-            {
-                return k_Lime;
-            }
-        }
-
-        public static Color Cyan
-        {
-            get
-            {
-                return k_Cyan;
-            }
-        }
+        private static readonly Dictionary<Color, char> sr_ColorLetter = new Dictionary<Color, char>()
+                                                                             {
+                                                                                 {
+                                                                                     sr_Purple,
+                                                                                     'A'
+                                                                                 },
+                                                                                 {
+                                                                                     sr_Red, 'B'
+                                                                                 },
+                                                                                 {
+                                                                                     sr_Lime,
+                                                                                     'C'
+                                                                                 },
+                                                                                 {
+                                                                                     sr_Cyan,
+                                                                                     'D'
+                                                                                 },
+                                                                                 {
+                                                                                     sr_Blue,
+                                                                                     'E'
+                                                                                 },
+                                                                                 {
+                                                                                     sr_Yellow,
+                                                                                     'F'
+                                                                                 },
+                                                                                 {
+                                                                                     sr_Brown,
+                                                                                     'G'
+                                                                                 },
+                                                                                 {
+                                                                                     sr_White,
+                                                                                     'H'
+                                                                                 }
+                                                                             };
 
         public static Color Blue
         {
             get
             {
-                return k_Blue;
-            }
-        }
-
-        public static Color Yellow
-        {
-            get
-            {
-                return k_Yellow;
+                return sr_Blue;
             }
         }
 
@@ -84,15 +73,15 @@ namespace UserInterface
         {
             get
             {
-                return k_Brown;
+                return sr_Brown;
             }
         }
 
-        public static Color White
+        public static Color Cyan
         {
             get
             {
-                return k_White;
+                return sr_Cyan;
             }
         }
 
@@ -100,7 +89,7 @@ namespace UserInterface
         {
             get
             {
-                return k_ExistRightPlaceColor;
+                return sr_ExistRightPlaceColor;
             }
         }
 
@@ -108,7 +97,47 @@ namespace UserInterface
         {
             get
             {
-                return k_ExistWrongPlaceColor;
+                return sr_ExistWrongPlaceColor;
+            }
+        }
+
+        public static Color Lime
+        {
+            get
+            {
+                return sr_Lime;
+            }
+        }
+
+        public static Color Purple
+        {
+            get
+            {
+                return sr_Purple;
+            }
+        }
+
+        public static Color Red
+        {
+            get
+            {
+                return sr_Red;
+            }
+        }
+
+        public static Color White
+        {
+            get
+            {
+                return sr_White;
+            }
+        }
+
+        public static Color Yellow
+        {
+            get
+            {
+                return sr_Yellow;
             }
         }
 
@@ -116,9 +145,9 @@ namespace UserInterface
         {
             StringBuilder guessAsString = new StringBuilder();
 
-            foreach(Color clr in i_Colors)
+            foreach (Color clr in i_Colors)
             {
-                guessAsString.Append(m_ColorLetter[clr]);
+                guessAsString.Append(sr_ColorLetter[clr]);
             }
 
             return guessAsString.ToString();

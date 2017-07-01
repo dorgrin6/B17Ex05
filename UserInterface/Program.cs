@@ -1,10 +1,4 @@
-﻿/*
- * TODO:
- * 1. use partial classes for seperating between form's design and form's logic?
- * 2. shorter ctors?
- * */
-
-namespace UserInterface
+﻿namespace UserInterface
 {
     public class Program
     {
