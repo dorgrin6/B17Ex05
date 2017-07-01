@@ -154,7 +154,7 @@
             buildFormBorder();
         }
 
-        private void buttonAccept_Click(object i_Sender, EventArgs i_Evet)
+        protected void ButtonAcceptClick(object i_Sender, EventArgs i_Event)
         {
             List<Color> colors;
             string letters;
@@ -184,7 +184,7 @@
             GameLine newGameLine;
 
             newGameLine = new GameLine(io_Location);
-            newGameLine.AcceptButton.Click += new EventHandler(buttonAccept_Click);
+            newGameLine.AcceptButton.Click += new EventHandler(ButtonAcceptClick);
             newGameLine.EnableLine(i_isEnabled);
             m_GameLines.Add(newGameLine);
             addLineToForm(newGameLine);

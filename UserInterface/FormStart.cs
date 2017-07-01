@@ -80,7 +80,7 @@
             initializeComponent();
         }
 
-        private void button_Click(object i_Sender, EventArgs i_Event)
+        protected void ButtonClick(object i_Sender, EventArgs i_Event)
         {
             if (i_Sender == r_ButtonNumOfGuesses)
             {
@@ -112,7 +112,7 @@
             this.Controls.Add(i_Button);
             i_Button.Location = i_Location;
             i_Button.Size = i_Size;
-            i_Button.Click += new EventHandler(button_Click);
+            i_Button.Click += new EventHandler(ButtonClick);
         }
 
         private void initializeComponent()

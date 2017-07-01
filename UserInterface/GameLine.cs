@@ -21,7 +21,7 @@
             r_Guesses = new GuessesButtonsList(i_Location);
             foreach (Button btn in r_Guesses.List)
             {
-                btn.Click += new EventHandler(buttonColor_Click);
+                btn.Click += new EventHandler(ButtonColorClick);
             }
 
             r_AcceptButton = new Button
@@ -72,7 +72,7 @@
             }
         }
 
-        public void buttonColor_Click(object i_Sender, EventArgs i_Event)
+        protected void ButtonColorClick(object i_Sender, EventArgs i_Event)
         {
             if (!r_AcceptButton.Enabled && r_Guesses.LeftToSelectColor == 0)
             {
