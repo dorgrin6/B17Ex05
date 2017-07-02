@@ -21,7 +21,7 @@
                 btn.Size = new Size((int)eGuessButtonSize.Width, (int)eGuessButtonSize.Height);
                 btn.Location = i_Location;
                 i_Location.X += ((int)eGuessButtonSize.Width + k_SpaceOffset);
-                btn.Click += new EventHandler(ButtonClick);
+                btn.Click += new EventHandler(button_Click);
             }
         }
 
@@ -78,7 +78,7 @@
             return (int)eGuessButtonSize.Height + k_SpaceOffset;
         }
 
-        protected void ButtonClick(object i_Sender, EventArgs i_Evet)
+        private void button_Click(object i_Sender, EventArgs i_Evet)
         {
             Button colorButton = (i_Sender as Button);
 

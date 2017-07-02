@@ -67,13 +67,13 @@
         {
             ushort existRightPlace;
             ushort existWrongPlace;
-            const bool isEnabled = true;
+            const bool v_IsEnabled = true;
 
             insertGuessToBoard(m_CurrentLine, i_UserGuess);
             existRightPlace = r_GameLogic.Board[m_CurrentLine].ExistRightPlaceResult;
             existWrongPlace = r_GameLogic.Board[m_CurrentLine].ExistWrongPlaceResult;
             m_GameLines[m_CurrentLine].ShowResults(existRightPlace, existWrongPlace);
-            m_GameLines[m_CurrentLine].EnableLine(!isEnabled);
+            m_GameLines[m_CurrentLine].EnableLine(!v_IsEnabled);
 
             if (r_GameLogic.IsWinningGuess(m_CurrentLine))
             {
@@ -125,14 +125,13 @@
 
             height = (int)eFormStartLocation.Top + lineHeight * linesAmount + k_SpaceOffset;
             width = (int)eDefaultFormSize.Width;
-
             this.ClientSize = new Size(width, height);
         }
 
         private void buildGameBoard()
         {
             Point location = new Point(20, 20);
-            const bool isEnabled = true;
+            const bool v_IsEnabled = true;
 
             //creates the game goal in the upper part of the form
             createGameGoal(ref location);
@@ -143,11 +142,11 @@
             {
                 if (i == 0)
                 {
-                    createGameLine(ref location, isEnabled);
+                    createGameLine(ref location, v_IsEnabled);
                 }
                 else
                 {
-                    createGameLine(ref location, !isEnabled);
+                    createGameLine(ref location, !v_IsEnabled);
                 }
             }
 

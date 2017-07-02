@@ -26,40 +26,9 @@
 
         private static readonly Color sr_Yellow = Color.Yellow;
 
-        private static readonly Dictionary<Color, char> sr_ColorLetter = new Dictionary<Color, char>()
-                                                                             {
-                                                                                 {
-                                                                                     sr_Purple,
-                                                                                     'A'
-                                                                                 },
-                                                                                 {
-                                                                                     sr_Red, 'B'
-                                                                                 },
-                                                                                 {
-                                                                                     sr_Lime,
-                                                                                     'C'
-                                                                                 },
-                                                                                 {
-                                                                                     sr_Cyan,
-                                                                                     'D'
-                                                                                 },
-                                                                                 {
-                                                                                     sr_Blue,
-                                                                                     'E'
-                                                                                 },
-                                                                                 {
-                                                                                     sr_Yellow,
-                                                                                     'F'
-                                                                                 },
-                                                                                 {
-                                                                                     sr_Brown,
-                                                                                     'G'
-                                                                                 },
-                                                                                 {
-                                                                                     sr_White,
-                                                                                     'H'
-                                                                                 }
-                                                                             };
+        private static readonly Dictionary<Color, char> sr_ColorLetter = new Dictionary<Color, char>() {
+            { sr_Purple , 'A' } , { sr_Red , 'B' } , { sr_Lime , 'C' }, { sr_Cyan , 'D' } ,
+            { sr_Blue , 'E' } , { sr_Yellow , 'F' } , { sr_Brown , 'G' } , { sr_White , 'H'} };
 
         public static Color Blue
         {

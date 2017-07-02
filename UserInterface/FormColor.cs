@@ -13,7 +13,7 @@
 
         private const ushort k_SpaceOffset = 10;
 
-        private readonly List<Button> sr_ListOfButtons = new List<Button>(k_NumOfColors);
+        private readonly List<Button> r_ListOfButtons = new List<Button>(k_NumOfColors);
 
         private Color m_SelectedColor;
 
@@ -25,17 +25,17 @@
             this.Text = k_FormTitle;
             for (int i = 0; i < k_NumOfColors; i++)
             {
-                sr_ListOfButtons.Add(new Button());
+                r_ListOfButtons.Add(new Button());
             }
 
-            sr_ListOfButtons[0].BackColor = ColorUtilities.Purple;
-            sr_ListOfButtons[1].BackColor = ColorUtilities.Red;
-            sr_ListOfButtons[2].BackColor = ColorUtilities.Lime;
-            sr_ListOfButtons[3].BackColor = ColorUtilities.Cyan;
-            sr_ListOfButtons[4].BackColor = ColorUtilities.Blue;
-            sr_ListOfButtons[5].BackColor = ColorUtilities.Yellow;
-            sr_ListOfButtons[6].BackColor = ColorUtilities.Brown;
-            sr_ListOfButtons[7].BackColor = ColorUtilities.White;
+            r_ListOfButtons[0].BackColor = ColorUtilities.Purple;
+            r_ListOfButtons[1].BackColor = ColorUtilities.Red;
+            r_ListOfButtons[2].BackColor = ColorUtilities.Lime;
+            r_ListOfButtons[3].BackColor = ColorUtilities.Cyan;
+            r_ListOfButtons[4].BackColor = ColorUtilities.Blue;
+            r_ListOfButtons[5].BackColor = ColorUtilities.Yellow;
+            r_ListOfButtons[6].BackColor = ColorUtilities.Brown;
+            r_ListOfButtons[7].BackColor = ColorUtilities.White;
         }
 
         private enum eColorButtonSize
@@ -74,7 +74,7 @@
             initializeComponent();
         }
 
-        private void button_Click(object i_Sender, EventArgs i_Evet)
+        private void buttonColor_Click(object i_Sender, EventArgs i_Evet)
         {
             m_SelectedColor = (i_Sender as Button).BackColor;
             this.DialogResult = DialogResult.OK;
@@ -86,10 +86,10 @@
             Point location = new Point((int)eFormStartLocation.Left, (int)eFormStartLocation.Top);
             int countColors = 0;
 
-            foreach (Button btn in sr_ListOfButtons)
+            foreach (Button btn in r_ListOfButtons)
             {
                 btn.Size = new Size((int)eColorButtonSize.Width, (int)eColorButtonSize.Height);
-                btn.Click += new EventHandler(button_Click);
+                btn.Click += new EventHandler(buttonColor_Click);
                 if (countColors == 4)
                 {
                     location.X = (int)eFormStartLocation.Left;
